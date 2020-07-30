@@ -25,14 +25,13 @@ $(document).ready(function () {
 
   // Updating the plan array to it if plans were retrieved from the localStorage
   if (storedPlans !== null) {
-    planTextArr = storedPlans;
+    textArray = storedPlans;
   } else {
-    planTextArr = new Array(9);
-   
+    textArray = new Array(9);
   }
 
   if (test) {
-    console.log("full array of plned text", planTextArr);
+    console.log("full array of planned text", textArray);
   }
 
   // set variable for planner element
@@ -58,10 +57,10 @@ $(document).ready(function () {
     var timeDiv = $("<div>");
     timeDiv.addClass("col-md-2");
 
-    // create timeBox element 
-    var timeBoxSpn = $("<span>");
+    // create timeBox element
+    var timeBox = $("<span>");
     // use attribute to get the value
-    timeBoxSpn.attr("class", "timeBox");
+    timeBox.attr("class", "timeBox");
 
     // formatting hours for display
     var displayHour = 0;
@@ -75,12 +74,10 @@ $(document).ready(function () {
     }
 
     // adding time into timebox
-    timeBoxSpn.text(`${displayHour} ${time}`);
+    timeBox.text(`${displayHour} ${time}`);
 
-    
     rowDiv.append(timeDiv);
-    timeDiv.append(timeBoxSpn);
-    
+    timeDiv.append(timeBox);
 
     // Screating an input for row by adding attributes
     var dailyPlan = $("<input>");
@@ -91,7 +88,7 @@ $(document).ready(function () {
     dailyPlan.attr("class", "dailyPlan");
 
     // access index from data array for hour
-    dailyPlan.val(planTextArr[index]);
+    dailyPlan.val(textArray[index]);
 
     // create col to control width
     var inputDiv = $("<div>");
@@ -101,7 +98,6 @@ $(document).ready(function () {
     //append new divs and input using variables
     rowDiv.append(inputDiv);
     inputDiv.append(dailyPlan);
-    
 
     // Creating save div for planner
     var saveDiv = $("<div>");
@@ -115,12 +111,11 @@ $(document).ready(function () {
     // add col width and row component to row
     rowDiv.append(saveDiv);
     saveDiv.append(saveBtn);
-    
 
     // setting row color based on time
     updateRowColor(rowDiv, hour);
 
-    // append row to planner 
+    // append row to planner
     plannerDiv.append(rowDiv);
   }
 
@@ -156,7 +151,7 @@ $(document).ready(function () {
     event.preventDefault();
 
     if (test) {
-      console.log("click pta before " + planTextArr);
+      console.log("click pta before " + textArray);
     }
 
     var indexSave = $(this).attr("save-id");
@@ -164,7 +159,7 @@ $(document).ready(function () {
     var inputId = "#input-" + indexSave;
     var value = $(inputId).val();
 
-    planTextArr[indexSave] = value;
+    textArray[indexSave] = value;
 
     if (test) {
       console.log("value ", value);
@@ -173,11 +168,10 @@ $(document).ready(function () {
       console.log("index ", indexSave);
     }
     if (test) {
-      console.log("click pta after " + planTextArr);
+      console.log("click pta after " + textArray);
     }
 
-
-    localStorage.setItem("storedPlans", JSON.stringify(planTextArr));
+    localStorage.setItem("storedPlans", JSON.stringify(textArray));
   });
 
   // function to save button on change of input
